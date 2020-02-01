@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Joint))]
 public class DragPoint : MonoBehaviour
 {
-    private Vector3 m_screenPoint, m_offset;
+    private Vector3 m_screenPoint, m_offset; 
+    private Vector3 m_prevPoint;
     public Rigidbody Body
     {
         get; private set;
@@ -23,13 +24,16 @@ public class DragPoint : MonoBehaviour
     {
         m_screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         m_offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z));
+        m_prevPoint = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z);
         var mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        Body.MovePosition(mouseWorldPos + m_offset);
+        var pos = mouseWorldPos + m_offset;
+        Body.velocity = Vector3.ClampMagnitude((pos - m_prevPoint) / Time.fixedDeltaTime, 100f);
+        m_prevPoint = pos;
     }
 }

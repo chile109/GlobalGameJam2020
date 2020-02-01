@@ -52,7 +52,7 @@ public class Wire : MonoBehaviour
     public void OnMouseUp()
     {
         Destroy(m_puller.gameObject);
-        EndRecursiveInverseConnect();
+        StartRecursiveInverseBreak();
     }
 
     public void OnMouseDrag()
@@ -64,65 +64,78 @@ public class Wire : MonoBehaviour
     {
         if (m_joint.connectedBody != null)
         {
-            m_parentWire.RecursiveInverseConnect(this.WireRigidbody);
+            m_parentWire.RecursiveInverseConnect(this.WireRigidbody, JointRotation());
         }
-        ResetJoint(Vector3.zero, rb);
+        ResetJoint(Vector3.zero, rb, null); //add anywhere
     }
 
-    public void EndRecursiveInverseConnect()
+    public void StartRecursiveInverseBreak()
     {
-        ResetJoint(m_anchorValue, m_parentWire?.WireRigidbody);
-        m_parentWire?.EndRecursiveInverseConnect();
+        var angles = m_parentWire?.RecursiveInverseBreak();
+        ResetJoint(m_anchorValue, m_parentWire?.WireRigidbody, angles);
     }
 
-    public void RecursiveInverseConnect(Rigidbody rb)
+    public void RecursiveInverseConnect(Rigidbody rb, Vector3 curAngles)
     {
         if (m_joint.connectedBody != null)
         {
-            m_parentWire.RecursiveInverseConnect(this.WireRigidbody);
+            m_parentWire.RecursiveInverseConnect(this.WireRigidbody, JointRotation());
         }
-        ResetJoint(-m_anchorValue, rb);
+        ResetJoint(-m_anchorValue, rb, curAngles);
     }
 
-    public void ResetJoint(Vector3 anchor, Rigidbody connectedBody)
+    public Vector3? RecursiveInverseBreak()
     {
+        var angles = m_parentWire?.RecursiveInverseBreak();
+        Vector3? rot = null;
         if (m_joint.connectedBody != null)
         {
-            Debug.Log("jointRotation: "+GetJointRotation());
-            var eulerAngless = GetJointRotation().eulerAngles;
-            Debug.Log("eulerAngless: " + eulerAngless);
-            var eulerAngles = JointRotation(m_joint);
-            Debug.Log("eulerAngles: "+eulerAngles);
-            /*
+            rot = JointRotation();
+        }
+        ResetJoint(m_anchorValue, m_parentWire?.WireRigidbody, angles);
+        return rot;
+    }
+
+    public void ResetJoint(Vector3 anchor, Rigidbody connectedBody, Vector3? curAngles)
+    {
+        m_joint.anchor = anchor;
+        m_joint.connectedBody = connectedBody;
+        if (m_joint.connectedBody != null && curAngles.HasValue)
+        {
+            m_joint.angularXMotion = ConfigurableJointMotion.Limited;
+
+            Debug.LogFormat("gameObject {0}: curAngles is {1}", gameObject.name, curAngles.ToString());
+            var reverseAngle = curAngles.Value;
             m_joint.lowAngularXLimit = new SoftJointLimit()
             {
-                limit = eulerAngles.z - m_maxAngle,
+                limit = reverseAngle.x - m_maxAngle,
                 bounciness = 0,
                 contactDistance = 0
             };
             m_joint.highAngularXLimit = new SoftJointLimit()
             {
-                limit = eulerAngles.z + m_maxAngle,
+                limit = reverseAngle.x + m_maxAngle,
                 bounciness = 0,
                 contactDistance = 0
             };
+            /*
             m_joint.angularYLimit = new SoftJointLimit()
             {
-                limit = eulerAngles.x + m_maxAngle,
+                limit = reverseAngle.x + m_maxAngle,
                 bounciness = 0,
                 contactDistance = 0
             };
             m_joint.angularZLimit = new SoftJointLimit()
             {
-                limit = eulerAngles.y + m_maxAngle,
+                limit = reverseAngle.y + m_maxAngle,
                 bounciness = 0,
                 contactDistance = 0
             };*/
-            Debug.Log(eulerAngles.z);
-            Debug.Log(m_joint.angularZLimit);
         }
-        m_joint.anchor = anchor;
-        m_joint.connectedBody = connectedBody;
+        else
+        {
+            m_joint.angularXMotion = ConfigurableJointMotion.Free;
+        }
     }
 
     public Quaternion GetJointRotation()
@@ -138,11 +151,11 @@ public class Wire : MonoBehaviour
         }
         return v;
     }
-    Vector3 JointRotation(ConfigurableJoint joint)
+    Vector3 JointRotation()
     {
-        Quaternion jointBasis = Quaternion.LookRotation(joint.secondaryAxis, Vector3.Cross(joint.axis, joint.secondaryAxis));
+        Quaternion jointBasis = Quaternion.LookRotation(m_joint.secondaryAxis, Vector3.Cross(m_joint.axis, m_joint.secondaryAxis));
         Quaternion jointBasisInverse = Quaternion.Inverse(jointBasis);
-        var rotation = (jointBasisInverse * Quaternion.Inverse(joint.connectedBody.rotation) * joint.GetComponent<Rigidbody>().transform.rotation * jointBasis).eulerAngles;
+        var rotation = (jointBasisInverse * Quaternion.Inverse(m_joint.connectedBody.rotation) * WireRigidbody.transform.rotation * jointBasis).eulerAngles;
         return new Vector3(To180(rotation.x), To180(rotation.z), To180(rotation.y));
     }
 }
