@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * 桌腳的每一個節
+ * */
 public class TableLeg : MonoBehaviour
 {
     /*private void Update()
