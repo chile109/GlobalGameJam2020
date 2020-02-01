@@ -1,19 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class TvController : MonoBehaviour
 {
+    public SidePanelController PanelR;
+    public SidePanelController PanelL;
     public float Sensitivity;
+
+    private Vector3 _initPos;
     private Vector3 _mouseReference;
     private Vector3 _mouseOffset;
-    public Vector3 _rotation;
+    private Vector3 _rotation;
     private bool _isRotating;
 
     void Start()
     {
         Sensitivity = 0.4f;
         _rotation = Vector3.zero;
+
+        PanelR.ClickEvent += RightHitTween;
+        PanelL.ClickEvent += LeftHitTween;
+        _initPos = transform.position;
     }
 
     void Update()
@@ -49,5 +56,21 @@ public class TvController : MonoBehaviour
     void OnMouseUp()
     {
         _isRotating = false;
+    }
+
+    void RightHitTween()
+    {
+        var doShake = transform.DOShakePosition(0.5f, 0.3f, 20);
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(doShake);
+        mySequence.AppendCallback(() => { transform.position = _initPos; });
+    }
+
+    void LeftHitTween()
+    {
+        var doShake = transform.DOPunchPosition(transform.right * 0.5f, 0.3f, 20, 0.3f);
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(doShake);
+        mySequence.AppendCallback(() => { transform.position = _initPos; });
     }
 }
