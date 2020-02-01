@@ -22,8 +22,6 @@ public class TvController : MonoBehaviour
         PanelR.ClickEvent += RightHitTween;
         PanelL.ClickEvent += LeftHitTween;
         _initPos = transform.position;
-
-        //_signal = UnityEngine.Random.Range(-10, 10);
     }
 
     void Update()
