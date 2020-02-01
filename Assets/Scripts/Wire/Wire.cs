@@ -20,6 +20,8 @@ public class Wire : MonoBehaviour
     private DragPoint m_puller;
     [SerializeField]
     private Vector3 m_anchorValue;
+    [SerializeField]
+    private float m_maxAngle;
 
     private void Awake()
     {
@@ -64,14 +66,12 @@ public class Wire : MonoBehaviour
         {
             m_parentWire.RecursiveInverseConnect(this.WireRigidbody);
         }
-        m_joint.anchor = Vector3.zero;
-        m_joint.connectedBody = rb;
+        ResetJoint(Vector3.zero, rb);
     }
 
     public void EndRecursiveInverseConnect()
     {
-        m_joint.anchor = m_anchorValue;
-        m_joint.connectedBody = m_parentWire?.WireRigidbody;
+        ResetJoint(m_anchorValue, m_parentWire?.WireRigidbody);
         m_parentWire?.EndRecursiveInverseConnect();
     }
 
@@ -81,7 +81,68 @@ public class Wire : MonoBehaviour
         {
             m_parentWire.RecursiveInverseConnect(this.WireRigidbody);
         }
-        m_joint.anchor = -m_anchorValue;
-        m_joint.connectedBody = rb;
+        ResetJoint(-m_anchorValue, rb);
+    }
+
+    public void ResetJoint(Vector3 anchor, Rigidbody connectedBody)
+    {
+        if (m_joint.connectedBody != null)
+        {
+            Debug.Log("jointRotation: "+GetJointRotation());
+            var eulerAngless = GetJointRotation().eulerAngles;
+            Debug.Log("eulerAngless: " + eulerAngless);
+            var eulerAngles = JointRotation(m_joint);
+            Debug.Log("eulerAngles: "+eulerAngles);
+            /*
+            m_joint.lowAngularXLimit = new SoftJointLimit()
+            {
+                limit = eulerAngles.z - m_maxAngle,
+                bounciness = 0,
+                contactDistance = 0
+            };
+            m_joint.highAngularXLimit = new SoftJointLimit()
+            {
+                limit = eulerAngles.z + m_maxAngle,
+                bounciness = 0,
+                contactDistance = 0
+            };
+            m_joint.angularYLimit = new SoftJointLimit()
+            {
+                limit = eulerAngles.x + m_maxAngle,
+                bounciness = 0,
+                contactDistance = 0
+            };
+            m_joint.angularZLimit = new SoftJointLimit()
+            {
+                limit = eulerAngles.y + m_maxAngle,
+                bounciness = 0,
+                contactDistance = 0
+            };*/
+            Debug.Log(eulerAngles.z);
+            Debug.Log(m_joint.angularZLimit);
+        }
+        m_joint.anchor = anchor;
+        m_joint.connectedBody = connectedBody;
+    }
+
+    public Quaternion GetJointRotation()
+    {
+        return (Quaternion.FromToRotation(m_joint.axis, m_joint.connectedBody.transform.rotation.eulerAngles));
+    }
+
+    public float To180(float v)
+    {
+        if (v > 180)
+        {
+            v = v - 360;
+        }
+        return v;
+    }
+    Vector3 JointRotation(ConfigurableJoint joint)
+    {
+        Quaternion jointBasis = Quaternion.LookRotation(joint.secondaryAxis, Vector3.Cross(joint.axis, joint.secondaryAxis));
+        Quaternion jointBasisInverse = Quaternion.Inverse(jointBasis);
+        var rotation = (jointBasisInverse * Quaternion.Inverse(joint.connectedBody.rotation) * joint.GetComponent<Rigidbody>().transform.rotation * jointBasis).eulerAngles;
+        return new Vector3(To180(rotation.x), To180(rotation.z), To180(rotation.y));
     }
 }
