@@ -10,12 +10,13 @@ public class Hammer : MonoBehaviour
     public GameObject table;
     public AudioClip[] audios;
     public TQEBar tQEBar;
+    public Animator gamearAnimator;
 
     protected Vector3 hammerOriginalPosition;
     void Start()
     {
-        hammerOriginalPosition = transform.position;
-        transform.position = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
+        hammerOriginalPosition = transform.localPosition;
+        transform.localPosition = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
     }
 
     // Update is called once per frame
@@ -38,7 +39,7 @@ public class Hammer : MonoBehaviour
     {
         if (isHit)
         {
-            var legs = table.GetComponent<TableLegs>().legs[(table.GetComponent<Animator>().GetInteger("direction") + 1) % 4];
+            var legs = table.GetComponent<TableLegs>().legs[(gamearAnimator.GetInteger("direction") + 1) % 4];
 
             gameObject.GetComponent<AudioSource>().PlayOneShot(audios[0]);
 
@@ -49,7 +50,7 @@ public class Hammer : MonoBehaviour
                     legs[0].transform.position.y,
                     legs[0].transform.position.z
                 );
-                legs[0].GetComponent<TableLeg>().toDestroy();
+                legs[0].GetComponent<TableLeg>().toDestroy(transform.parent.rotation);
                 legs.RemoveAt(0);
                 if (table.GetComponent<TableLegs>().isWin())
                 {
@@ -61,13 +62,13 @@ public class Hammer : MonoBehaviour
         {
             gameObject.GetComponent<AudioSource>().PlayOneShot(audios[1]);
             //var p = Camera.main.ScreenToWorldPoint(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, hammerOriginalPosition.z));
-            gameObject.transform.position = new Vector3(hammerOriginalPosition.x, hammerOriginalPosition.y, hammerOriginalPosition.z);
+            gameObject.transform.localPosition = new Vector3(hammerOriginalPosition.x, hammerOriginalPosition.y, hammerOriginalPosition.z);
         }
     }
 
     void nextDirection()
     {
-        table.GetComponent<Animator>().SetInteger("direction", (table.GetComponent<Animator>().GetInteger("direction") + 1) % 4);
-        gameObject.transform.position = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
+        gamearAnimator.SetInteger("direction", (gamearAnimator.GetInteger("direction") + 1) % 4);
+        gameObject.transform.localPosition = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
     }
 }

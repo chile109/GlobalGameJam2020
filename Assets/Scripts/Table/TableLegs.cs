@@ -9,7 +9,7 @@ public class TableLegs : MonoBehaviour
 {
     public Dictionary<int, List<GameObject>> legs = new Dictionary<int, List<GameObject>>();
 
-    int[] _namberConversion = {3, 2, 1, 0};//因為動畫中將桌腳的順序做反了，所以這是用來轉換桌腳編號用的
+    int[] _namberConversion = {0, 3, 2, 1};//因為動畫中將桌腳的順序做反了，所以這是用來轉換桌腳編號用的
     void Start()
     {
         for(var i = 0;i < 4; i++)//桌腳編號
