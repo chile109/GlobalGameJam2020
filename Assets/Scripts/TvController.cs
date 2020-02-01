@@ -12,6 +12,7 @@ public class TvController : MonoBehaviour
     private Vector3 _mouseOffset;
     private Vector3 _rotation;
     private bool _isRotating;
+    private int _signal = 9;
 
     void Start()
     {
@@ -21,10 +22,15 @@ public class TvController : MonoBehaviour
         PanelR.ClickEvent += RightHitTween;
         PanelL.ClickEvent += LeftHitTween;
         _initPos = transform.position;
+
+        //_signal = UnityEngine.Random.Range(-10, 10);
     }
 
     void Update()
     {
+        if (_signal == 0)
+            OnWin();
+
         if (_isRotating)
         {
             _mouseOffset = (Input.mousePosition - _mouseReference);
@@ -46,6 +52,11 @@ public class TvController : MonoBehaviour
         return true;
     }
 
+    private void OnWin()
+    {
+        Debug.Log("Win");
+    }
+
     void OnMouseDown()
     {
         _isRotating = true;
@@ -63,7 +74,11 @@ public class TvController : MonoBehaviour
         var doShake = transform.DOShakePosition(0.5f, 0.3f, 20);
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(doShake);
-        mySequence.AppendCallback(() => { transform.position = _initPos; });
+        mySequence.AppendCallback(() =>
+        {
+            transform.position = _initPos;
+            _signal += 5;
+        });
     }
 
     void LeftHitTween()
@@ -71,6 +86,15 @@ public class TvController : MonoBehaviour
         var doShake = transform.DOPunchPosition(transform.right * 0.5f, 0.3f, 20, 0.3f);
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(doShake);
-        mySequence.AppendCallback(() => { transform.position = _initPos; });
+        mySequence.AppendCallback(() =>
+        {
+            transform.position = _initPos;
+            _signal -= 6;
+        });
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 100, 20), _signal.ToString());
     }
 }
