@@ -13,6 +13,8 @@ public class Cursor : MonoBehaviour
     public GameObject badBar;
     public GameObject goodRangeBar;
 
+    public AudioClip[] audios;
+
     protected float totleTimeX = 0;
     protected float totleTimeY = 0;
     protected float totleTimeZ = 0;
@@ -27,7 +29,6 @@ public class Cursor : MonoBehaviour
         cursorOriginalPosition = transform.localPosition;
         hammerOriginalPosition = hammer.transform.position;
         newRange();
-
         hammer.transform.position = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
     }
 
@@ -44,6 +45,9 @@ public class Cursor : MonoBehaviour
              )
             {
                 var legs = table.GetComponent<TableLegs>().legs[(table.GetComponent<Animator>().GetInteger("direction") + 1) % 4];
+
+                hammer.GetComponent<AudioSource>().PlayOneShot(audios[0]);
+
                 if (legs.Count > 0) {
                     hammer.transform.position = new Vector3(
                         legs[0].transform.position.x,
@@ -61,8 +65,9 @@ public class Cursor : MonoBehaviour
             }
             else
             {
-                var p = Camera.main.ScreenToWorldPoint(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, hammerOriginalPosition.z));
-                hammer.transform.position = new Vector3(-p.x, hammerOriginalPosition.y, hammerOriginalPosition.z);
+                hammer.GetComponent<AudioSource>().PlayOneShot(audios[1]);
+                //var p = Camera.main.ScreenToWorldPoint(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, hammerOriginalPosition.z));
+                hammer.transform.position = new Vector3(hammerOriginalPosition.x, hammerOriginalPosition.y, hammerOriginalPosition.z);
             }
         }
         else if (!hammer.GetComponent<Animator>().GetBool("do_knock"))

@@ -25,7 +25,7 @@ public class TableLeg : MonoBehaviour
     {
         var rigidbody = gameObject.GetComponent<Rigidbody>();
         rigidbody.useGravity = true;
-        rigidbody.AddForce(new Vector3(30f, 0, 0), ForceMode.Impulse);
+        rigidbody.AddForce(new Vector3(-30f, 0, 0), ForceMode.Impulse);
         Destroy(gameObject, 0.15f);
     }
 }
