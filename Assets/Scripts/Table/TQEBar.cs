@@ -26,7 +26,7 @@ public class TQEBar : MonoBehaviour
         totleTimeX = moveTrackX[moveTrackX.length - 1].time;
         totleTimeY = moveTrackY[moveTrackY.length - 1].time;
         totleTimeZ = moveTrackZ[moveTrackZ.length - 1].time;
-        cursorOriginalPosition = transform.localPosition;
+        cursorOriginalPosition = cursor.transform.localPosition;
         newRange();
     }
 
@@ -45,9 +45,9 @@ public class TQEBar : MonoBehaviour
     public bool getResult()
     {
         if (
-                goodBar.transform.localPosition.x - goodBar.GetComponent<RectTransform>().rect.width / 2 <= cursor.transform.localPosition.x
+                goodBar.transform.localPosition.x - goodBar.GetComponent<RectTransform>().rect.width / 2 - cursor.GetComponent<RectTransform>().rect.width / 2 <= cursor.transform.localPosition.x
                 &&
-                cursor.transform.localPosition.x <= goodBar.transform.localPosition.x + goodBar.GetComponent<RectTransform>().rect.width / 2
+                cursor.transform.localPosition.x <= goodBar.transform.localPosition.x + goodBar.GetComponent<RectTransform>().rect.width / 2 + cursor.GetComponent<RectTransform>().rect.width / 2
         )
         {
             newRange();

@@ -7,6 +7,7 @@ using UnityEngine;
  * */
 public class TableLeg : MonoBehaviour
 {
+    public int quadrant;
     /*private void Update()
     {
         var previousObject = table;
@@ -35,10 +36,29 @@ public class TableLeg : MonoBehaviour
         rigidbody.useGravity = true;
         var z = Mathf.Sin(angle) * 10f * (_in1or3quadrant ? -1 : 1);
         var x = Mathf.Cos(angle) * 10f * (_in1or3quadrant ? -1 : 1);
-        rigidbody.AddForce(new Vector3(x, Random.Range(-30, 30), z), ForceMode.Impulse);
+        rigidbody.AddForce(new Vector3(x, Random.Range(-20, 20), z), ForceMode.Impulse);
+
         Destroy(gameObject, 0.15f);
     }
-
+    private void OnDestroy()
+    {
+        var rotation = gameObject.transform.parent.rotation;
+        switch(quadrant)
+        {
+            case 1:
+                gameObject.transform.parent.rotation = Quaternion.Euler(rotation.eulerAngles.x - 15, rotation.eulerAngles.y, rotation.eulerAngles.z + 15);
+                break;
+            case 2:
+                gameObject.transform.parent.rotation = Quaternion.Euler(rotation.eulerAngles.x + 15, rotation.eulerAngles.y, rotation.eulerAngles.z + 15);
+                break;
+            case 3:
+                gameObject.transform.parent.rotation = Quaternion.Euler(rotation.eulerAngles.x + 15, rotation.eulerAngles.y, rotation.eulerAngles.z - 15);
+                break;
+            case 4:
+                gameObject.transform.parent.rotation = Quaternion.Euler(rotation.eulerAngles.x - 15, rotation.eulerAngles.y, rotation.eulerAngles.z - 15);
+                break;
+        }
+    }
     //判斷角度是否在第一或第四象限
     bool in1or3quadrant(float angle) => (90 <= angle && angle < 180 || 270 < angle && angle <= 360);
 }

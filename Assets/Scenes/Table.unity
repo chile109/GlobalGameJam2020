@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -174}
-  m_SizeDelta: {x: 725.55, y: 22}
+  m_SizeDelta: {x: 725.55, y: 12}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &5814427
 MonoBehaviour:
@@ -173,12 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a6ccd6983566dc94ba86f3c9186b4b40, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &108790789
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -311,7 +312,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &154676712
 GameObject:
@@ -324,6 +325,7 @@ GameObject:
   - component: {fileID: 154676714}
   - component: {fileID: 154676713}
   - component: {fileID: 154676715}
+  - component: {fileID: 154676716}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -382,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154676712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6, z: -10}
+  m_LocalPosition: {x: 9.92, y: -0.46, z: -3.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1925599918}
@@ -408,6 +410,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &154676716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154676712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_CameraOutput: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &204965315
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &278960120
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -606,7 +640,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &348683686 stripped
 GameObject:
@@ -626,6 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &348683691
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -640,7 +675,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &538229925
 GameObject:
@@ -676,7 +711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.91}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538229927
@@ -812,6 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &551028537
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -826,7 +862,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1001 &833360133
 PrefabInstance:
@@ -1022,6 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &908074679
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1036,7 +1073,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &949787461 stripped
 GameObject:
@@ -1056,6 +1093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &949787466
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1070,7 +1108,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1106833744 stripped
 GameObject:
@@ -1090,6 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1106833749
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1104,7 +1143,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1305527683 stripped
 GameObject:
@@ -1124,6 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1305527688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1138,7 +1178,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1466308458 stripped
 GameObject:
@@ -1158,6 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1466308463
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1172,7 +1213,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!4 &1508310343 stripped
 Transform:
@@ -1198,6 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1554307579
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1212,7 +1254,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1619277670 stripped
 GameObject:
@@ -1232,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1619277675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1246,7 +1289,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1843991622
 GameObject:
@@ -1275,15 +1318,15 @@ RectTransform:
   m_GameObject: {fileID: 1843991622}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.34785143, y: 1.7524, z: 1.7524}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5814426}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 22}
+  m_AnchoredPosition: {x: 0, y: -5.2}
+  m_SizeDelta: {x: 44.7, y: 51.6}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1843991625
 MonoBehaviour:
@@ -1524,6 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5837c39500fdc449671cb269683848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quadrant: 0
 --- !u!54 &1959662253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1538,7 +1582,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1001 &2034723088
 PrefabInstance:
@@ -1555,17 +1599,17 @@ PrefabInstance:
     - target: {fileID: 7009734673452163102, guid: b1c9206da39abd94f8262fbb406ea321,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12
+      value: 9.99
       objectReference: {fileID: 0}
     - target: {fileID: 7009734673452163102, guid: b1c9206da39abd94f8262fbb406ea321,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 7009734673452163102, guid: b1c9206da39abd94f8262fbb406ea321,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.4
+      value: 4.85
       objectReference: {fileID: 0}
     - target: {fileID: 7009734673452163102, guid: b1c9206da39abd94f8262fbb406ea321,
         type: 3}
@@ -1655,12 +1699,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.042039253, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f018d6629aaa95c4f851ec58262bd05d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1695,7 +1739,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 22}
+  m_SizeDelta: {x: 100, y: 12}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &2104952526
 GameObject:
