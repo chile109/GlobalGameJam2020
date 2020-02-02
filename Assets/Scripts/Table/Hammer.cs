@@ -15,6 +15,8 @@ public class Hammer : MonoBehaviour
     protected Vector3 hammerOriginalPosition;
     void Start()
     {
+        Camera.main.transform.position = new Vector3(0, 1, -10);
+        Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         hammerOriginalPosition = transform.localPosition;
         transform.localPosition = new Vector3(hammerOriginalPosition.y, hammerOriginalPosition.y, hammerOriginalPosition.z - 1000f);
     }
