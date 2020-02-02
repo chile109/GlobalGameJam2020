@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class Wire : MonoBehaviour
 {
+    private static Action m_callback;
     private Vector3 m_screenPoint, m_offset;
     private Collider m_collider;
     public Rigidbody WireRigidbody
@@ -22,6 +24,7 @@ public class Wire : MonoBehaviour
     private Vector3 m_anchorValue;
     [SerializeField]
     private float m_maxAngle;
+    private bool m_isFreeFall = false;
 
     private void Awake()
     {
@@ -35,6 +38,7 @@ public class Wire : MonoBehaviour
     {
         m_joint.connectedBody = m_parentWire?.WireRigidbody;
         m_screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        //m_joint.axis = Camera.main.transform.forward;
     }
 
     // Update is called once per frame
@@ -45,14 +49,20 @@ public class Wire : MonoBehaviour
 
     public void OnMouseDown()
     {
+        m_callback?.Invoke();
         m_puller = Instantiate(m_pullerPrefab, transform.position, Quaternion.identity);
+        //m_puller.DropCallback += StartRecursiveInverseBreak;
         StartRecursiveInverseConnect(m_puller.Body);
+        WireRigidbody.useGravity = false;
+        m_callback = StartRecursiveInverseBreak;
     }
 
     public void OnMouseUp()
     {
-        Destroy(m_puller.gameObject);
-        StartRecursiveInverseBreak();
+        m_isFreeFall = true;
+        m_puller.Release();
+        //StartRecursiveInverseBreak();
+        WireRigidbody.useGravity = true;
     }
 
     public void OnMouseDrag()
@@ -71,6 +81,8 @@ public class Wire : MonoBehaviour
 
     public void StartRecursiveInverseBreak()
     {
+        m_isFreeFall = false;
+        if (m_puller != null) Destroy(m_puller.gameObject);
         var angles = m_parentWire?.RecursiveInverseBreak();
         ResetJoint(m_anchorValue, m_parentWire?.WireRigidbody, angles);
     }
@@ -104,7 +116,7 @@ public class Wire : MonoBehaviour
         {
             m_joint.angularXMotion = ConfigurableJointMotion.Limited;
 
-            Debug.LogFormat("gameObject {0}: curAngles is {1}", gameObject.name, curAngles.ToString());
+            //Debug.LogFormat("gameObject {0}: curAngles is {1}", gameObject.name, curAngles.ToString());
             var reverseAngle = curAngles.Value;
             m_joint.lowAngularXLimit = new SoftJointLimit()
             {

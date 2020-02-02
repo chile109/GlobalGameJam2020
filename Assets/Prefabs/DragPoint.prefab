@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2868628673951395006}
   - component: {fileID: 2595717085435338854}
   - component: {fileID: 1587782609140351648}
+  - component: {fileID: -7371087570418864121}
   m_Layer: 0
   m_Name: DragPoint
   m_TagString: Untagged
@@ -62,6 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79dd7b3406d448b6ac85e503f58fa32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LiftOffsetValue: 5
+  m_dragForce: 10
 --- !u!145 &2595717085435338854
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -135,3 +138,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &-7371087570418864121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868628673951395007}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
