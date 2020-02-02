@@ -1,11 +1,15 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UserInterfaceController : MonoBehaviour
 {
     [SerializeField]
     private TimerDisplay Timer;
+    
+    [SerializeField]
+    private VideoPlayer _player;
 
     [SerializeField]
     public Image _crossEfect;
@@ -37,7 +41,7 @@ public class UserInterfaceController : MonoBehaviour
     {
         if (Instance != this) Destroy(this);
 
-        Timer.StartCountdown(5f, () => { Debug.Log("TimeOut"); });
+        Timer.StartCountdown(5f, PlayGameOverVideo);
     }
 
     public void CrossScene()
@@ -47,5 +51,10 @@ public class UserInterfaceController : MonoBehaviour
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(fadeOut);
         mySequence.Append(fadeIn);
+    }
+
+    public void PlayGameOverVideo()
+    {
+        _player.Play();
     }
 }
