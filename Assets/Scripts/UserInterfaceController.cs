@@ -98,7 +98,7 @@ public class UserInterfaceController : MonoBehaviour
     {
         _StoryUI.gameObject.SetActive(false);
         _GameUI.SetActive(true);
-        Timer.StartCountdown(5f, PlayGameOverVideo);
+        Timer.StartCountdown(90f, PlayGameOverVideo);
         JumpStage1();
     }
 
@@ -114,7 +114,7 @@ public class UserInterfaceController : MonoBehaviour
     public void JumpStage2()
     {
         _tip.sprite = _spriteList[1];
-        _currentGame = "Cable";
+        _currentGame = "Wire";
         CrossScene(_currentGame);
     }
 
