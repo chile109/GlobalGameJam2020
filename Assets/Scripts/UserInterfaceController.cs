@@ -60,9 +60,14 @@ public class UserInterfaceController : MonoBehaviour
         }
     }
 
+    private Vector3 _initPos;
+    private Quaternion _initRot;
+
     void Start()
     {
         if (Instance != this) Destroy(this);
+        _initPos = Camera.main.transform.position;
+        _initRot = Camera.main.transform.rotation;
     }
 
     public void CrossScene(string To, string From = null)
@@ -120,6 +125,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public void JumpStage3()
     {
+        Camera.main.transform.SetPositionAndRotation(_initPos, _initRot);
         _tip.sprite = _spriteList[2];
         CrossScene("TV", _currentGame);
         _currentGame = "TV";
