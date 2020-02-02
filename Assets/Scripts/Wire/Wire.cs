@@ -53,7 +53,7 @@ public class Wire : MonoBehaviour
         m_puller = Instantiate(m_pullerPrefab, transform.position, Quaternion.identity);
         //m_puller.DropCallback += StartRecursiveInverseBreak;
         StartRecursiveInverseConnect(m_puller.Body);
-        WireRigidbody.useGravity = false;
+        SetWireGravity(false);
         m_callback = StartRecursiveInverseBreak;
     }
 
@@ -62,7 +62,8 @@ public class Wire : MonoBehaviour
         m_isFreeFall = true;
         m_puller.Release();
         //StartRecursiveInverseBreak();
-        WireRigidbody.useGravity = true;
+        SetWireGravity(true);
+        //WireRigidbody.useGravity = true;
     }
 
     public void OnMouseDrag()
@@ -169,5 +170,18 @@ public class Wire : MonoBehaviour
         Quaternion jointBasisInverse = Quaternion.Inverse(jointBasis);
         var rotation = (jointBasisInverse * Quaternion.Inverse(m_joint.connectedBody.rotation) * WireRigidbody.transform.rotation * jointBasis).eulerAngles;
         return new Vector3(To180(rotation.x), To180(rotation.z), To180(rotation.y));
+    }
+
+    public void SetWireGravity(bool active)
+    {
+        foreach(var line in transform.parent.GetComponentsInChildren<Wire>())
+        {
+            line.SetGravity(active);
+        }
+    }
+
+    public void SetGravity(bool active)
+    {
+        WireRigidbody.useGravity = active;
     }
 }
