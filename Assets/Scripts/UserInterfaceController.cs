@@ -114,14 +114,14 @@ public class UserInterfaceController : MonoBehaviour
     public void JumpStage2()
     {
         _tip.sprite = _spriteList[1];
+        CrossScene("Wire", _currentGame);
         _currentGame = "Wire";
-        CrossScene(_currentGame);
     }
 
     public void JumpStage3()
     {
         _tip.sprite = _spriteList[2];
+        CrossScene("TV", _currentGame);
         _currentGame = "TV";
-        CrossScene(_currentGame);
     }
 }
