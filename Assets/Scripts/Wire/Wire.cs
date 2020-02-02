@@ -48,7 +48,7 @@ public class Wire : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (WireSceneController.I.hasWon)
+        if (WireSceneController.I.HasWon)
             return;
         m_callback?.Invoke();
         m_puller = Instantiate(m_pullerPrefab, transform.position, Quaternion.identity);
@@ -60,7 +60,7 @@ public class Wire : MonoBehaviour
 
     public void OnMouseUp()
     {
-        if (WireSceneController.I.hasWon)
+        if (WireSceneController.I.HasWon)
             return;
         m_isFreeFall = true;
         m_puller.Release();
