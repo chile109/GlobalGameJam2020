@@ -126,7 +126,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public void JumpStage3()
     {
-        WinEffect.show();
+        WinEffect.show(Quaternion.Euler(90, 0, 0));
         Camera.main.transform.SetPositionAndRotation(_initPos, _initRot);
         _tip.sprite = _spriteList[2];
         CrossScene("TV", _currentGame);

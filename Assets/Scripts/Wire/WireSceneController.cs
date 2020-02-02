@@ -25,7 +25,6 @@ public class WireSceneController : MonoBehaviour
     public void WinStage()
     {
         HasWon = true;
-        WinEffect.show(Quaternion.Euler(90, 0, 0));
         StartCoroutine(NextStage());
     }
 
