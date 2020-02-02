@@ -16,6 +16,7 @@ public class TvController : MonoBehaviour
     private Renderer rend;
     private Material screenMaterial;
     private Material[] materials;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class TvController : MonoBehaviour
         PanelL.ClickEvent += LeftHitTween;
         _initPos = transform.position;
 
+        audioSource = GetComponent<AudioSource>();
         InitMaterials();
         SetShaderValue(0);
     }
@@ -75,6 +77,8 @@ public class TvController : MonoBehaviour
 
     void RightHitTween()
     {
+        audioSource.PlayOneShot(audioSource.clip);
+
         var doShake = transform.DOShakePosition(0.5f, 0.3f, 20);
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(doShake);
@@ -88,6 +92,8 @@ public class TvController : MonoBehaviour
 
     void LeftHitTween()
     {
+        audioSource.PlayOneShot(audioSource.clip);
+
         var doShake = transform.DOPunchPosition(transform.right * 0.5f, 0.3f, 20, 0.3f);
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(doShake);
@@ -133,6 +139,7 @@ public class TvController : MonoBehaviour
         }
 
         SetShaderValue(value);
+        Debug.Log($"Signal is {_signal}, noise value is {value}");
     }
 
     private void SetShaderValue(float value)
