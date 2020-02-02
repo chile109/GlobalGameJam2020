@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UserInterfaceController : MonoBehaviour
 {
+    [SerializeField]
+    private TimerDisplay Timer;
+
     [SerializeField]
     public Image _crossEfect;
 
@@ -36,6 +36,8 @@ public class UserInterfaceController : MonoBehaviour
     void Start()
     {
         if (Instance != this) Destroy(this);
+
+        Timer.StartCountdown(5f, () => { Debug.Log("TimeOut"); });
     }
 
     public void CrossScene()

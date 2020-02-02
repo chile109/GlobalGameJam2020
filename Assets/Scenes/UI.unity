@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 157214457}
   - component: {fileID: 157214456}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 483240328}
   - component: {fileID: 483240327}
   m_Layer: 5
-  m_Name: Handle
+  m_Name: Mom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -584,7 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d6253c1c0be488e99e8da324f39930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crossEfect: {fileID: 0}
+  Timer: {fileID: 1897722881}
+  _crossEfect: {fileID: 1770042501}
   _duration: 3
 --- !u!114 &1081072768
 MonoBehaviour:
@@ -1072,8 +1073,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1897722879}
   - component: {fileID: 1897722880}
+  - component: {fileID: 1897722881}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,3 +1154,17 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1897722881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897722878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bc812480fd44b58aa9534c970f84c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: {fileID: 1897722880}
+  Progress: {fileID: 631702526}
