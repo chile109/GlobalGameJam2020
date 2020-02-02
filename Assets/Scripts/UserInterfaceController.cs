@@ -8,10 +8,16 @@ using UnityEngine.Video;
 public class UserInterfaceController : MonoBehaviour
 {
     [SerializeField]
-    public StorySystem _StoryUI;
+    private GameObject _HomeUI;
 
     [SerializeField]
-    public GameObject _GameUI;
+    private AudioSource _bgm;
+
+    [SerializeField]
+    private StorySystem _StoryUI;
+
+    [SerializeField]
+    private GameObject _GameUI;
 
     [SerializeField]
     private TimerDisplay Timer;
@@ -20,19 +26,19 @@ public class UserInterfaceController : MonoBehaviour
     private VideoPlayer _player;
 
     [SerializeField]
-    public Image _bg;
-    
-    [SerializeField]
-    public Image _tip;
+    private Image _bg;
 
     [SerializeField]
-    public List<Sprite> _spriteList;
+    private Image _tip;
 
     [SerializeField]
-    public Image _crossEfect;
+    private List<Sprite> _spriteList;
 
     [SerializeField]
-    public float _duration = 3;
+    private Image _crossEfect;
+
+    [SerializeField]
+    private float _duration = 3;
 
     private static UserInterfaceController s_Instance;
 
@@ -73,13 +79,19 @@ public class UserInterfaceController : MonoBehaviour
         mySequence.AppendCallback(() => { SceneManager.LoadSceneAsync(To, LoadSceneMode.Additive); });
         mySequence.Append(fadeIn);
         mySequence.AppendCallback(() => { _bg.gameObject.SetActive(false); });
-        
     }
 
     public void PlayGameOverVideo()
     {
-        SceneManager.UnloadSceneAsync("Table");
+        _bgm.Stop();
+        SceneManager.UnloadSceneAsync(_currentGame);
         _player.Play();
+    }
+
+    public void PlayStory()
+    {
+        _HomeUI.SetActive(false);
+        _StoryUI.gameObject.SetActive(true);
     }
 
     public void StartPlay()
@@ -90,21 +102,26 @@ public class UserInterfaceController : MonoBehaviour
         JumpStage1();
     }
 
+    private string _currentGame;
+
     public void JumpStage1()
     {
         _tip.sprite = _spriteList[0];
-        CrossScene("Table");
+        _currentGame = "Table";
+        CrossScene(_currentGame);
     }
-    
+
     public void JumpStage2()
     {
         _tip.sprite = _spriteList[1];
-        CrossScene("Wire");
+        _currentGame = "Cable";
+        CrossScene(_currentGame);
     }
-    
+
     public void JumpStage3()
     {
         _tip.sprite = _spriteList[2];
-        CrossScene("TV");
+        _currentGame = "TV";
+        CrossScene(_currentGame);
     }
 }
