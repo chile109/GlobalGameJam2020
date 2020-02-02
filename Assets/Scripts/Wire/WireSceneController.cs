@@ -30,7 +30,7 @@ public class WireSceneController : MonoBehaviour
 
     public IEnumerator NextStage()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         UserInterfaceController.Instance.JumpStage3();
     }
 }
