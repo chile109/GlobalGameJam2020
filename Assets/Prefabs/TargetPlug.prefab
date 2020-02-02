@@ -88,12 +88,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7392925953606593258}
-  - component: {fileID: 2752536063579909065}
+  - component: {fileID: 5819683317501011717}
   - component: {fileID: 5819683317501011716}
   - component: {fileID: 5819683317501011719}
   - component: {fileID: 5819683317501011718}
   m_Layer: 0
-  m_Name: Plug
+  m_Name: Plug 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2752536063579909065
+--- !u!114 &5819683317501011717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5819683317501024505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e150e9998b5aa4c169deb1efec4411bf, type: 3}
+  m_Script: {fileID: 11500000, guid: bf6480b72dfe84546b0a2dfdbb12db9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_parentWire: {fileID: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
     type: 3}
   m_anchorValue: {x: 0, y: 3.8, z: 0}
   m_maxAngle: 75
+  SocketHolder: {fileID: 0}
 --- !u!65 &5819683317501011716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 17, y: -60, z: -2.2}
   serializedVersion: 2
   m_SecondaryAxis: {x: 1, y: 0, z: 0}
   m_XMotion: 0

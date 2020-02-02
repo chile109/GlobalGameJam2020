@@ -17,7 +17,6 @@ public class Plug : Wire
                 tmp = true;
                 return;
             }
-            WireSceneController.I.hasWon = true;
             m_callback?.Invoke();
             m_puller = Instantiate(m_pullerPrefab, transform.position, Quaternion.identity);
             m_puller.Body.mass = 500f;
@@ -26,6 +25,7 @@ public class Plug : Wire
             m_collider.enabled = false;
             m_joint.connectedBody = m_puller.Body;
             SetWireGravity(false);
+            WireSceneController.I.WinStage();
         }
     }
 }
