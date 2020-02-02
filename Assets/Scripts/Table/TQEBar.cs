@@ -45,9 +45,9 @@ public class TQEBar : MonoBehaviour
     public bool getResult()
     {
         if (
-                goodBar.transform.localPosition.x - goodBar.GetComponent<RectTransform>().rect.width / 2 <= cursor.transform.localPosition.x
+                goodBar.transform.localPosition.x - goodBar.GetComponent<RectTransform>().rect.width / 2 - cursor.GetComponent<RectTransform>().rect.width / 2 <= cursor.transform.localPosition.x
                 &&
-                cursor.transform.localPosition.x <= goodBar.transform.localPosition.x + goodBar.GetComponent<RectTransform>().rect.width / 2
+                cursor.transform.localPosition.x <= goodBar.transform.localPosition.x + goodBar.GetComponent<RectTransform>().rect.width / 2 + cursor.GetComponent<RectTransform>().rect.width / 2
         )
         {
             newRange();

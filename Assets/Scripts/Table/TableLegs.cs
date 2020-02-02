@@ -9,7 +9,8 @@ public class TableLegs : MonoBehaviour
 {
     public Dictionary<int, List<GameObject>> legs = new Dictionary<int, List<GameObject>>();
 
-    int[] _namberConversion = {0, 3, 2, 1};//因為動畫中將桌腳的順序做反了，所以這是用來轉換桌腳編號用的
+    int[] namberConversion = {0, 3, 2, 1};//因為動畫中將桌腳的順序做反了，所以這是用來轉換桌腳編號用的
+    int[] quadrants = {3, 2, 1, 4};
     void Start()
     {
         for(var i = 0;i < 4; i++)//桌腳編號
@@ -17,9 +18,12 @@ public class TableLegs : MonoBehaviour
             legs[i] = new List<GameObject>();
             for (var j = 1;j <= 3; j++)//每一角有三節
             {
-                var leg = transform.Find(string.Format("Leg_0{0}.00{1}", j, _namberConversion[i]));
+                var leg = transform.Find(string.Format("Leg_0{0}.00{1}", j, namberConversion[i]));
                 if (leg != null)
+                {
+                    leg.GetComponent<TableLeg>().quadrant = quadrants[i];
                     legs[i].Add(leg.gameObject);
+                }
             }
         }
         var r = Random.Range(0, 4);//遊戲開始時隨意清除一角
