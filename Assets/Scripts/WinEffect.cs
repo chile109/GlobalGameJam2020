@@ -13,8 +13,14 @@ public class WinEffect : MonoBehaviour
 
     public static void show()
     {
+        show(Quaternion.Euler(0, 0, 0));
+    }
+    public static void show(Quaternion quaternion)
+    {
         var o = Instantiate(winParticle);
         o.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(1920 / 2, 0, 8f));
+        var s = o.GetComponent<ParticleSystem>().shape;
+        s.rotation = quaternion.eulerAngles;
         Destroy(o, 1.5f);
     }
 }
