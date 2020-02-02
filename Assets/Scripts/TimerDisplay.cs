@@ -14,8 +14,9 @@ public class TimerDisplay : MonoBehaviour
 
     public void StartCountdown(float duration, Action timeOutCallback)
     {
+        
         Sequence mySequence=DOTween.Sequence(); 
-        mySequence.Append(timer.DOValue(0, duration));
+        mySequence.Append(timer.DOValue(0, duration).SetEase(Ease.Linear));
         mySequence.Insert( 2f, Progress.DOColor(Color.red, 3) );
         mySequence.AppendCallback(() =>
         {
