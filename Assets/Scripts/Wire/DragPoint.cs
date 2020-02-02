@@ -6,6 +6,8 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class DragPoint : MonoBehaviour
 {
+    private bool m_manual = false;
+    private Vector3 m_dest;
     public Action DropCallback;
     private Vector3 m_screenPoint, m_offset, m_liftOffset;
     private Vector3 m_prevPoint;
@@ -35,6 +37,11 @@ public class DragPoint : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (m_manual)
+        {
+            Body.MovePosition(m_dest);
+            return;
+        }
         if (!m_holding)
             return;
         var mouseScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z);
@@ -50,5 +57,11 @@ public class DragPoint : MonoBehaviour
         m_holding = false;
         Body.mass = 10f;
         Body.useGravity = true;
+    }
+
+    public void ManualPullTo(Vector3 pos)
+    {
+        m_manual = true;
+        m_dest = pos;
     }
 }

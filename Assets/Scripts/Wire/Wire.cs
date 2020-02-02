@@ -6,25 +6,24 @@ using System;
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class Wire : MonoBehaviour
 {
-    private static Action m_callback;
-    private Vector3 m_screenPoint, m_offset;
-    private Collider m_collider;
     public Rigidbody WireRigidbody
     {
         get; private set;
     }
-    private ConfigurableJoint m_joint;
-    [SerializeField]
-    private Wire m_parentWire;
+
+    public Wire m_parentWire;
+    public DragPoint m_pullerPrefab;
+    public Vector3 m_anchorValue;
+    public float m_maxAngle;
+
+    private Vector3 m_screenPoint, m_offset;
+    protected Collider m_collider;
+    protected ConfigurableJoint m_joint;
+    protected DragPoint m_puller;
     private Rigidbody m_jointConnected;
-    [SerializeField]
-    private DragPoint m_pullerPrefab;
-    private DragPoint m_puller;
-    [SerializeField]
-    private Vector3 m_anchorValue;
-    [SerializeField]
-    private float m_maxAngle;
     private bool m_isFreeFall = false;
+
+    protected static Action m_callback;
 
     private void Awake()
     {
@@ -49,6 +48,8 @@ public class Wire : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if (WireSceneController.I.hasWon)
+            return;
         m_callback?.Invoke();
         m_puller = Instantiate(m_pullerPrefab, transform.position, Quaternion.identity);
         //m_puller.DropCallback += StartRecursiveInverseBreak;
@@ -59,16 +60,13 @@ public class Wire : MonoBehaviour
 
     public void OnMouseUp()
     {
+        if (WireSceneController.I.hasWon)
+            return;
         m_isFreeFall = true;
         m_puller.Release();
         //StartRecursiveInverseBreak();
         SetWireGravity(true);
         //WireRigidbody.useGravity = true;
-    }
-
-    public void OnMouseDrag()
-    {
-        //m_joint.targetPosition = m_puller.transform.position;
     }
 
     public void StartRecursiveInverseConnect(Rigidbody rb)

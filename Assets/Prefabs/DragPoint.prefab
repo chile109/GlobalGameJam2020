@@ -63,8 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79dd7b3406d448b6ac85e503f58fa32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LiftOffsetValue: 5
-  m_dragForce: 10
+  LiftOffsetValue: 10
+  m_dragForce: 20
 --- !u!145 &2595717085435338854
 SpringJoint:
   m_ObjectHideFlags: 0
