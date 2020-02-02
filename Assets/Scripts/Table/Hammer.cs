@@ -57,7 +57,6 @@ public class Hammer : MonoBehaviour
                 if (table.GetComponent<TableLegs>().isWin())
                 {
                     Debug.Log("贏了");
-                    WinEffect.show();
                     UserInterfaceController.Instance.JumpStage2();
                 }
             }

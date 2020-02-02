@@ -118,6 +118,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public void JumpStage2()
     {
+        WinEffect.show();
         _tip.sprite = _spriteList[1];
         CrossScene("Wire", _currentGame);
         _currentGame = "Wire";
@@ -125,6 +126,7 @@ public class UserInterfaceController : MonoBehaviour
 
     public void JumpStage3()
     {
+        WinEffect.show();
         Camera.main.transform.SetPositionAndRotation(_initPos, _initRot);
         _tip.sprite = _spriteList[2];
         CrossScene("TV", _currentGame);
