@@ -13,6 +13,9 @@ public class TvController : MonoBehaviour
     private Vector3 _rotation;
     private bool _isRotating;
     private int _signal = 9;
+    private Renderer rend;
+    private Material screenMaterial;
+    private Material[] materials;
 
     void Start()
     {
@@ -22,6 +25,9 @@ public class TvController : MonoBehaviour
         PanelR.ClickEvent += RightHitTween;
         PanelL.ClickEvent += LeftHitTween;
         _initPos = transform.position;
+
+        InitMaterials();
+        SetShaderValue(0);
     }
 
     void Update()
@@ -76,6 +82,7 @@ public class TvController : MonoBehaviour
         {
             transform.position = _initPos;
             _signal += 5;
+            CalculateNoise();
         });
     }
 
@@ -88,11 +95,48 @@ public class TvController : MonoBehaviour
         {
             transform.position = _initPos;
             _signal -= 6;
+            CalculateNoise();
         });
     }
 
     private void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 100, 20), _signal.ToString());
+    }
+
+    private void InitMaterials()
+    {
+        rend = GetComponent<Renderer>();
+        screenMaterial = Resources.Load<Material>("MAT_News");
+        materials = rend.materials;
+        materials[1] = screenMaterial;
+        rend.materials = materials;
+    }
+
+    private void CalculateNoise()
+    {
+        if (_signal == 0)
+        {
+            SetShaderValue(1);
+            return;
+        }
+
+        var value = 10.0f - Mathf.Abs(_signal);
+        if (value > 0)
+        {
+            value = (_signal / 10f) * Mathf.Sign(_signal);
+            value = 1 - value;
+        }
+        else
+        {
+            value = 0;
+        }
+
+        SetShaderValue(value);
+    }
+
+    private void SetShaderValue(float value)
+    {
+        rend.materials[1].SetFloat("_COLOR", value);
     }
 }
